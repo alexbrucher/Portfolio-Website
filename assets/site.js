@@ -10,7 +10,7 @@
       <a class="project-card" href="project.html?project=${project.slug}">
         <span class="project-number">${String(index + 1).padStart(2, '0')}</span>
         <div class="project-card-visual${projectImage ? ' has-image' : ''}" aria-hidden="true">${projectImage ? `<img src="${projectImage}" alt="" />` : `<span>Project image<br />placeholder</span>`}</div>
-        <div class="project-card-main"><p>${project.category}</p><h2>${project.title}</h2><span class="project-card-description">${project.overviewLead || '[ADD PROJECT DESCRIPTION]'}</span><span class="project-card-skills">${Array.isArray(project.skills) ? project.skills.slice(0, 3).join(' · ') : '[ADD SKILLS]'}</span><span class="project-card-client">${project.client}</span></div>
+        <div class="project-card-main"><p>${project.category}</p><h2>${project.title}</h2><span class="project-card-description">${project.problemLead || '[ADD PROJECT DESCRIPTION]'}</span><span class="project-card-skills">${Array.isArray(project.skillsUsed) ? project.skillsUsed.slice(0, 3).join(' · ') : '[ADD SKILLS]'}</span><span class="project-card-client">${project.organization}</span></div>
         <div class="project-card-end"><span>${project.date}</span><b aria-hidden="true">↗</b></div>
       </a>`;
     }).join('');
@@ -32,8 +32,11 @@
     const renderSkills = (skills) => Array.isArray(skills) && skills.length
       ? `<section><p class="label">Skills used</p><ul class="skills-list">${skills.map((skill) => `<li>${skill}</li>`).join('')}</ul></section>`
       : '';
+    const renderCitation = (citation) => citation
+      ? `<p class="stat-citation">Source: <a href="${citation.url}" target="_blank" rel="noreferrer">${citation.label}</a></p>`
+      : '';
     const interactiveCadCaption = 'Interactive cad render';
-    const modelCaption = project.modelLabel || interactiveCadCaption;
+    const modelCaption = project.modelCaption || interactiveCadCaption;
     const cadMedia = project.model
       ? `<div class="model-panel"><div class="model-toolbar"><span>${interactiveCadCaption}</span><span>Drag to rotate · scroll to zoom</span></div><model-viewer src="${project.model}"${project.modelOrientation ? ` orientation="${project.modelOrientation}"` : ''} alt="${modelCaption}" camera-controls auto-rotate rotation-per-second="18deg" shadow-intensity=".35" exposure=".9" interaction-prompt="auto"><div slot="poster" class="model-loading">Loading CAD model...</div></model-viewer><p class="media-caption">${modelCaption}</p></div>`
       : `<div class="model-panel image-placeholder"><span>CAD render placeholder</span><small>Add a model or render in content/projects.js</small><p class="media-caption">${interactiveCadCaption}</p></div>`;
@@ -47,14 +50,15 @@
       : `<section class="media-stage media-stage-single" aria-label="Project image">${projectMedia}</section>`;
     root.innerHTML = `
       <a class="back-link" href="index.html#projects">← All projects</a>
-      <header class="project-header"><div><p class="label">${project.category}</p><h1>${project.title}</h1></div><dl><div><dt>Organization</dt><dd>${project.client}</dd></div><div><dt>Date</dt><dd>${project.date}</dd></div></dl></header>
+      <header class="project-header"><div><p class="label">${project.category}</p><h1>${project.title}</h1></div><dl><div><dt>Organization</dt><dd>${project.organization}</dd></div><div><dt>Date</dt><dd>${project.date}</dd></div></dl></header>
       ${media}
       <section class="project-template" aria-label="Project details">
-        ${renderProjectSection('Project overview', project.overviewLead, project.overview)}
+        ${renderProjectSection('Problem', project.problemLead, project.problem)}
+        ${renderProjectSection('Solution', project.solutionLead, project.solution)}
         ${renderProjectSection('My role', project.roleLead, project.role)}
-        ${renderSkills(project.skills)}
-        ${renderProjectSection('Outcomes', project.outcomesLead, project.outcomes)}
+        ${renderSkills(project.skillsUsed)}
       </section>
+      ${renderCitation(project.statCitation)}
       <p class="editor-note">Edit this project in <code>content/projects.js</code>. The full how-to is in <code>README.md</code>.</p>`;
     root.querySelectorAll('[data-carousel]').forEach((carousel) => {
       const track = carousel.querySelector('.carousel-track');

@@ -35,13 +35,13 @@ For best results, use landscape images at least 1600px wide. Keep only images an
 
 The perfusion-system page includes your `Organ Rack V1.1` model as a real interactive CAD model in `assets/models`. Open **Organ Perfusion System** from the home page, then drag to rotate and scroll to zoom.
 
-To add another model later, convert your STL to `.glb` (Blender can do this) and add `model: "assets/models/your-model.glb"` plus `modelLabel: "Your model name"` to the right project in `content/projects.js`.
+To add another model later, convert your STL to `.glb` (Blender can do this) and add `model: "assets/models/your-model.glb"` plus `modelCaption: "Your model caption"` to the right project in `content/projects.js`.
 
 ## Write project content
 
 1. Open the relevant object in `content/projects.js`.
-2. Replace each section's lead and supporting text: `overviewLead` + `overview`, `roleLead` + `role`, and `outcomesLead` + `outcomes`.
-3. Update `skills` with an array of the skills used on the project, such as `skills: ["CAD modeling", "Prototype testing"]`.
+2. Replace each section's lead and supporting text: `problemLead` + `problem` for the Problem section, `solutionLead` + `solution` for the Solution section, and `roleLead` + `role` for My role.
+3. Update `skillsUsed` with an array of the skills used on the project, such as `skillsUsed: ["CAD modeling", "Prototype testing"]`.
 4. Keep each section concise and specific: explain the problem, your contribution, evidence of the result, and the tools or tests that got you there.
 5. Update the project's title, organization, category, date, image, and model in the same object when those details change.
 
