@@ -9,8 +9,8 @@
       return `
       <a class="project-card" href="project.html?project=${project.slug}">
         <span class="project-number">${String(index + 1).padStart(2, '0')}</span>
-        <div class="project-card-visual${projectImage ? ' has-image' : ''}" aria-hidden="true">${projectImage ? `<img src="${projectImage}" alt="" />` : `<span>Project image<br />placeholder</span>`}</div>
-        <div class="project-card-main"><p>${project.category}</p><h2>${project.title}</h2><span class="project-card-description">${project.problemLead || '[ADD PROJECT DESCRIPTION]'}</span><span class="project-card-skills">${Array.isArray(project.skillsUsed) ? project.skillsUsed.slice(0, 3).join(' · ') : '[ADD SKILLS]'}</span><span class="project-card-client">${project.organization}</span></div>
+        <div class="project-card-visual${projectImage ? ' has-image' : ''}" aria-hidden="true">${projectImage ? `<img src="${projectImage}" alt="" />` : ''}</div>
+        <div class="project-card-main"><p>${project.category}</p><h2>${project.title}</h2><span class="project-card-description">${project.cardDescription || project.problemLead || ''}</span><span class="project-card-skills">${Array.isArray(project.skillsUsed) ? project.skillsUsed.slice(0, 3).join(' · ') : ''}</span><span class="project-card-client">${project.organization}</span></div>
         <div class="project-card-end"><span>${project.date}</span><b aria-hidden="true">↗</b></div>
       </a>`;
     }).join('');
@@ -39,12 +39,12 @@
     const modelCaption = project.modelCaption || interactiveCadCaption;
     const cadMedia = project.model
       ? `<div class="model-panel"><div class="model-toolbar"><span>${interactiveCadCaption}</span><span>Drag to rotate · scroll to zoom</span></div><model-viewer src="${project.model}"${project.modelOrientation ? ` orientation="${project.modelOrientation}"` : ''} alt="${modelCaption}" camera-controls auto-rotate rotation-per-second="18deg" shadow-intensity=".35" exposure=".9" interaction-prompt="auto"><div slot="poster" class="model-loading">Loading CAD model...</div></model-viewer><p class="media-caption">${modelCaption}</p></div>`
-      : `<div class="model-panel image-placeholder"><span>CAD render placeholder</span><small>Add a model or render in content/projects.js</small><p class="media-caption">${interactiveCadCaption}</p></div>`;
+      : `<div class="model-panel media-empty"><p class="media-caption">${interactiveCadCaption}</p></div>`;
     const projectMedia = images.length
       ? images.length > 1
         ? `<div class="project-image image-carousel" data-carousel><div class="carousel-track">${images.map((item) => `<figure><img src="${item.src}" alt="${item.alt || project.title}" /><figcaption>${item.caption || ''}</figcaption></figure>`).join('')}</div><div class="carousel-controls"><button type="button" data-carousel-prev aria-label="Previous project image">←</button><span data-carousel-count>1 / ${images.length}</span><button type="button" data-carousel-next aria-label="Next project image">→</button></div></div>`
         : `<figure class="project-image"><img src="${images[0].src}" alt="${images[0].alt || project.title}" /><figcaption>${images[0].caption || ''}</figcaption></figure>`
-      : `<figure class="project-image image-placeholder"><span>Project image placeholder</span><small>Add an image in content/projects.js</small><figcaption>${project.imageCaption || ''}</figcaption></figure>`;
+      : `<figure class="project-image media-empty"></figure>`;
     const media = project.model
       ? `<section class="media-stage" aria-label="Project media">${cadMedia}${projectMedia}</section>`
       : `<section class="media-stage media-stage-single" aria-label="Project image">${projectMedia}</section>`;
@@ -58,8 +58,7 @@
         ${renderProjectSection('My role', project.roleLead, project.role)}
         ${renderSkills(project.skillsUsed)}
       </section>
-      ${renderCitation(project.statCitation)}
-      <p class="editor-note">Edit this project in <code>content/projects.js</code>. The full how-to is in <code>README.md</code>.</p>`;
+      ${renderCitation(project.statCitation)}`;
     root.querySelectorAll('[data-carousel]').forEach((carousel) => {
       const track = carousel.querySelector('.carousel-track');
       const count = carousel.querySelector('[data-carousel-count]');
