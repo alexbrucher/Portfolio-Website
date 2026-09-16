@@ -15,6 +15,7 @@
 html { scroll-behavior: smooth; }
 body { margin: 0; color: var(--ink); background: var(--paper); font-family: var(--sans); line-height: 1.45; }
 a { color: inherit; }
+ a:focus-visible, button:focus-visible { outline: 3px solid var(--signal); outline-offset: 4px; }
 .page-shell { width: min(1180px, calc(100% - 48px)); margin-inline: auto; }
 .skip-link { position: absolute; left: -999px; top: 0; z-index: 3; padding: 10px; color: white; background: var(--blue); }
 .skip-link:focus { left: 10px; }
@@ -29,7 +30,8 @@ nav a.active::after { position: absolute; right: 0; bottom: 0; left: 0; height: 
 .hero h1 { max-width: 700px; margin: 15px 0 24px; font-size: clamp(2.4rem, 5vw, 4.8rem); line-height: 1; letter-spacing: -.05em; font-weight: 900; }
 .hero-details { display: flex; align-items: baseline; justify-content: space-between; gap: 32px; max-width: 850px; }
 .hero-subtitle { max-width: 600px; margin: 0; color: var(--muted); font: 500 1.08rem/1.55 var(--sans); }
-.hero-availability { flex: 0 0 auto; margin: 0; color: var(--signal); font: 700 .78rem var(--mono); letter-spacing: .04em; text-transform: uppercase; }
+.hero-capabilities { margin: 14px 0 0; color: var(--blue); font: 700 .7rem var(--mono); letter-spacing: .04em; text-transform: uppercase; }
+.hero-availability { flex: 0 1 360px; max-width: 360px; margin: 0; color: var(--signal); font: 700 .78rem var(--mono); letter-spacing: .04em; text-transform: uppercase; }
 .work-section { padding: 58px 0 112px; }
 .section-heading { display: flex; justify-content: space-between; padding-bottom: 20px; border-bottom: 2px solid var(--ink); }
 .section-note { margin: 0; color: var(--muted); font: .78rem var(--mono); }
@@ -43,6 +45,9 @@ nav a.active::after { position: absolute; right: 0; bottom: 0; left: 0; height: 
 .project-card-main p { margin: 0 0 5px; color: var(--muted); font: 700 .65rem var(--mono); letter-spacing: .08em; text-transform: uppercase; }
 .project-card h2 { margin: 0; font-size: clamp(1.5rem, 3vw, 2.65rem); line-height: 1.05; letter-spacing: -.055em; }
 .project-card-main > span { display: block; margin-top: 7px; color: var(--muted); font: .78rem var(--mono); }
+.project-card-main .project-card-description { max-width: 620px; color: var(--ink); font: 500 .9rem/1.35 var(--sans); }
+.project-card-main .project-card-skills { margin-top: 8px; color: var(--blue); font: 700 .65rem var(--mono); letter-spacing: .03em; text-transform: uppercase; }
+.project-card-main .project-card-client { margin-top: 8px; }
 .project-card-end { display: flex; align-items: center; justify-content: space-between; color: var(--muted); font: .72rem var(--mono); }
 .project-card-end b { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid var(--ink); border-radius: 50%; color: var(--ink); font-size: 1rem; transition: background .18s, color .18s; }
 .project-card:hover b { border-color: var(--blue); color: white; background: var(--blue); }
@@ -99,6 +104,10 @@ dd { margin: 6px 0 0; font-size: .9rem; }
 .skills-list li { padding: 7px 9px; border: 1px solid var(--line); border-radius: 4px; color: var(--ink); background: var(--white); font: 700 .72rem var(--mono); }
 .editor-note { margin: 24px 0 0; color: var(--muted); font: .72rem var(--mono); }
 .editor-note code { color: var(--blue); }
+@media (max-width: 900px) and (min-width: 701px) {
+  .hero-details { align-items: flex-start; flex-direction: column; gap: 18px; }
+  .hero-availability { max-width: 100%; }
+}
 @media (max-width: 700px) {
   .page-shell { width: calc(100% - 32px); }
   .site-header { width: 100%; height: 70px; padding-inline: 16px; }

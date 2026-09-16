@@ -10,7 +10,7 @@
       <a class="project-card" href="project.html?project=${project.slug}">
         <span class="project-number">${String(index + 1).padStart(2, '0')}</span>
         <div class="project-card-visual${projectImage ? ' has-image' : ''}" aria-hidden="true">${projectImage ? `<img src="${projectImage}" alt="" />` : `<span>Project image<br />placeholder</span>`}</div>
-        <div class="project-card-main"><p>${project.category}</p><h2>${project.title}</h2><span>${project.client}</span></div>
+        <div class="project-card-main"><p>${project.category}</p><h2>${project.title}</h2><span class="project-card-description">${project.overviewLead || '[ADD PROJECT DESCRIPTION]'}</span><span class="project-card-skills">${Array.isArray(project.skills) ? project.skills.slice(0, 3).join(' · ') : '[ADD SKILLS]'}</span><span class="project-card-client">${project.client}</span></div>
         <div class="project-card-end"><span>${project.date}</span><b aria-hidden="true">↗</b></div>
       </a>`;
     }).join('');
@@ -47,14 +47,14 @@
       : `<section class="media-stage media-stage-single" aria-label="Project image">${projectMedia}</section>`;
     root.innerHTML = `
       <a class="back-link" href="index.html#projects">← All projects</a>
-      <header class="project-header"><div><p class="label">${project.category}</p><h1>${project.title}</h1></div><dl><div><dt>Organization</dt><dd>${project.client}</dd></div><div><dt>Year</dt><dd>${project.date}</dd></div></dl></header>
+      <header class="project-header"><div><p class="label">${project.category}</p><h1>${project.title}</h1></div><dl><div><dt>Organization</dt><dd>${project.client}</dd></div><div><dt>Date</dt><dd>${project.date}</dd></div></dl></header>
       ${media}
-      <div class="project-template">
+      <section class="project-template" aria-label="Project details">
         ${renderProjectSection('Project overview', project.overviewLead, project.overview)}
         ${renderProjectSection('My role', project.roleLead, project.role)}
         ${renderSkills(project.skills)}
         ${renderProjectSection('Outcomes', project.outcomesLead, project.outcomes)}
-      </div>
+      </section>
       <p class="editor-note">Edit this project in <code>content/projects.js</code>. The full how-to is in <code>README.md</code>.</p>`;
     root.querySelectorAll('[data-carousel]').forEach((carousel) => {
       const track = carousel.querySelector('.carousel-track');

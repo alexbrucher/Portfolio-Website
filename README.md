@@ -42,8 +42,8 @@ To add another model later, convert your STL to `.glb` (Blender can do this) and
 1. Open the relevant object in `content/projects.js`.
 2. Replace each section's lead and supporting text: `overviewLead` + `overview`, `roleLead` + `role`, and `outcomesLead` + `outcomes`.
 3. Update `skills` with an array of the skills used on the project, such as `skills: ["CAD modeling", "Prototype testing"]`.
-3. Keep each section concise and specific: explain the problem, your contribution, evidence of the result, and the tools or tests that got you there.
-4. Update the project's title, organization, category, date, image, and model in the same object when those details change.
+4. Keep each section concise and specific: explain the problem, your contribution, evidence of the result, and the tools or tests that got you there.
+5. Update the project's title, organization, category, date, image, and model in the same object when those details change.
 
 ## Add project media
 
@@ -54,6 +54,7 @@ Each project object also controls the media stage at the top of its page:
 - `image`: path to the project image.
 - `imageCaption`: caption shown below the project image or placeholder.
 - `images`: optional array of `{ src, caption, alt }` objects for multiple top-of-page images. One image fills the image stage; two or more become a carousel.
+- `date`: the project date shown as a month and year, or a month-year range when the project spans multiple months.
 - A project with no CAD model and one image uses a full-width image stage. A project with a CAD model uses a half-width image stage alongside the CAD viewer.
 
 When a project has both `model` and one or more `images`, the CAD viewer and image stage each occupy half of the media area. The `images` array takes precedence over the older single `image` field. The old `mediaLayout` field is no longer needed.
@@ -69,6 +70,8 @@ Each lead is shown on its own bold line above the supporting text. Leave a lead 
 ## Publish free later
 
 This structure works well with GitHub Pages, Netlify, or Vercel. GitHub Pages is a particularly simple free choice for a static portfolio once the folder is in a GitHub repository.
+
+For GitHub Pages, open the repository's **Settings → Pages**, choose **Deploy from a branch**, select `main` and `/ (root)`, then save. Because this site has no build step, the existing HTML, CSS, JavaScript, images, and models publish directly.
 
 ## Design choices
 
